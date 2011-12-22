@@ -88,11 +88,21 @@ let g:pdv_cfg_CommentEnd = "// }" . "}" . "}"
 
 " Default values
 let g:pdv_cfg_Type = "mixed"
-let g:pdv_cfg_Package = ""
-let g:pdv_cfg_Version = "$id$"
-let g:pdv_cfg_Author = "kevin olson <acidjazz@gmail.com>"
-let g:pdv_cfg_Copyright = "2006-2009 FanIQ"
-let g:pdv_cfg_License = "PHP Version 5.2 {@link http://www.php.net/license/}"
+if !exists('g:pdv_cfg_Package')
+    let g:pdv_cfg_Package = ""
+endif
+if !exists('g:pdv_cfg_Version')
+    let g:pdv_cfg_Version = "$id$"
+endif
+if !exists('g:pdv_cfg_Author')
+    let g:pdv_cfg_Author = "kevin olson <acidjazz@gmail.com>"
+endif
+if !exists('g:pdv_cfg_Copyright')
+    let g:pdv_cfg_Copyright = "2006-2009 FanIQ"
+endif
+if !exists('g:pdv_cfg_License')
+    let g:pdv_cfg_License = "PHP Version 5.2 {@link http://www.php.net/license/}"
+endif
 
 let g:pdv_cfg_ReturnVal = "void"
 
@@ -467,11 +477,21 @@ func! PhpDocClass()
 	if l:final != ""
         exe l:txtBOL . g:pdv_cfg_Commentn . "@final" . g:pdv_cfg_EOL
     endif
-	exe l:txtBOL . g:pdv_cfg_Commentn . "@package " . g:pdv_cfg_Package . g:pdv_cfg_EOL
-	exe l:txtBOL . g:pdv_cfg_Commentn . "@version " . g:pdv_cfg_Version . g:pdv_cfg_EOL
-	exe l:txtBOL . g:pdv_cfg_Commentn . "@copyright " . g:pdv_cfg_Copyright . g:pdv_cfg_EOL
-	exe l:txtBOL . g:pdv_cfg_Commentn . "@author " . g:pdv_cfg_Author g:pdv_cfg_EOL
-	exe l:txtBOL . g:pdv_cfg_Commentn . "@license " . g:pdv_cfg_License . g:pdv_cfg_EOL
+    if g:pdv_cfg_Package != ''
+	    exe l:txtBOL . g:pdv_cfg_Commentn . "@package " . g:pdv_cfg_Package . g:pdv_cfg_EOL
+    endif
+    if g:pdv_cfg_Version != ''
+	    exe l:txtBOL . g:pdv_cfg_Commentn . "@version " . g:pdv_cfg_Version . g:pdv_cfg_EOL
+    endif
+    if g:pdv_cfg_Copyright != ''
+	    exe l:txtBOL . g:pdv_cfg_Commentn . "@copyright " . g:pdv_cfg_Copyright . g:pdv_cfg_EOL
+    endif
+    if g:pdv_cfg_Author != ''
+	    exe l:txtBOL . g:pdv_cfg_Commentn . "@author " . g:pdv_cfg_Author g:pdv_cfg_EOL
+    endif
+    if g:pdv_cfg_License != ''
+	    exe l:txtBOL . g:pdv_cfg_Commentn . "@license " . g:pdv_cfg_License . g:pdv_cfg_EOL
+    endif
 
 	" Close the comment block.
 	exe l:txtBOL . g:pdv_cfg_CommentTail . g:pdv_cfg_EOL
