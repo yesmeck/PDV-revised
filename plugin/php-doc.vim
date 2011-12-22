@@ -114,6 +114,9 @@ let g:pdv_cfg_php4guess = 1
 " the identifiers having an _ in the first place.
 let g:pdv_cfg_php4guessval = "protected"
 
+" Whether use comment wrap function
+let g:pdv_cfg_Comment_Wrap_Func = 0
+
 "
 " Regular expressions 
 " 
@@ -270,10 +273,11 @@ endfunc
 " {{{ PhpDocFuncEndAuto()
 func! PhpDocFuncEndAuto()
 
-
-	call search('{')
-	call searchpair('{', '', '}')
-	call append(line('.'), matchstr(getline('.'), '^\s*') . g:pdv_cfg_CommentEnd)
+    if g:pdv_cfg_Comment_Wrap_Func
+	    call search('{')
+	    call searchpair('{', '', '}')
+	    call append(line('.'), matchstr(getline('.'), '^\s*') . g:pdv_cfg_CommentEnd)
+    endif
 
 endfunc
 " }}}
@@ -312,7 +316,9 @@ func! PhpDocFunc()
     " Local indent
     let l:txtBOL = g:pdv_cfg_BOL . l:indent
 
+    if g:pdv_cfg_Comment_Wrap_Func
 		exec l:txtBOL . "/* " . l:scope ." ".  funcname . "(" . l:params . ") {{" . "{ */ " . g:pdv_cfg_EOL
+    endif
 	
     exe l:txtBOL . g:pdv_cfg_CommentHead . g:pdv_cfg_EOL
 		" added folding
